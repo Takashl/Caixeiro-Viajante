@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 	};
 	
 	struct no pontos[10];
-	int i, j, checker[10], achou;
+	int i, j;
 	//Vetor Pontos
 	for(i=0;i<10;i++){
 		pontos[i].id = i;
