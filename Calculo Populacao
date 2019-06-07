@@ -1,0 +1,42 @@
+//Calculo populacao
+		struct populacao{
+     int rota[10];
+     float custo;
+	};
+ 	 struct populacao populacao[100];
+ 	 
+ 	 for(i=0;i<100;i++)
+    {
+        for(k=0;k<10;k++)
+        {
+            aux[k]=0;
+        }
+        populacao[i].custo=0;
+        for(j=0;j<10;j++)
+        {
+            populacao[i].rota[j] = rand()%10;
+                while(aux[populacao[i].rota[j]] == 1)
+                {
+                    populacao[i].rota[j] = rand()%10;
+                }
+                aux[populacao[i].rota[j]] = 1;
+                if(j!=0)
+                {
+                    populacao[i].custo = populacao[i].custo + dist[populacao[i].rota[j-1]][populacao[i].rota[j]];
+                }
+
+        }
+    }
+
+for(i=0;i<100;i++)
+    {
+        printf("\nPopulacao: %d - ",i);
+        
+        for(j=0;j<10;j++)
+        {
+            printf(" %d",populacao[i].rota[j]);
+            
+        }
+        printf("\tCusto: %.1f",populacao[i].custo);
+    }
+    return 0;
