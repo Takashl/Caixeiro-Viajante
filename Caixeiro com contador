@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+int main(int argc, char *argv[]) {
+	srand(time(NULL));
+	struct no{
+		int px;
+		int py;
+		int id;
+	};
+	
+	struct no pontos[10];
+	int i, j, k;
+		float menor=9999, maior=0;
+	//Vetor Pontos
+	for(i=0;i<10;i++){
+		pontos[i].id = i;
+		pontos[i].px = rand()%361;
+		pontos[i].py = rand()%361; 
+	printf("Id - %d| Px - %d| Py - %d|\n", pontos[i].id, pontos[i].px, pontos[i].py);
+		}
+		//Matriz distancia
+		printf("\n");
+	float dist[10][10];
+		for(i=0;i<10;i++){
+			for(j=0;j<10;j++){
+			dist[i][j] = sqrt(pow(pontos[i].px - pontos[j].px,2) + pow(pontos[i].py - pontos[j].py,2));
+			printf("%7.2f  ", dist[i][j]);
+		}
+		printf("\n");
+		}
+		//Calculo populacao
+		int aux[10];
+		struct populacao{
+     int rota[10];
+     float custo;
+	};
+ 	 struct populacao populacao[100];
+ 	 
+ 	 for(i=0;i<100;i++)
+    {
+    	//Vetor aux
+        for(k=0;k<10;k++)
+        {
+            aux[k]=0;
+        }
+        populacao[i].custo=0;
+        
+        for(j=0;j<10;j++)
+        {
+            populacao[i].rota[j] = rand()%10;
+                while(aux[populacao[i].rota[j]] == 1)
+                {
+                    populacao[i].rota[j] = rand()%10;
+                }
+                aux[populacao[i].rota[j]] = 1;
+                if(j!=0)
+                //Soma das distancias
+                {
+                    populacao[i].custo = populacao[i].custo + dist[populacao[i].rota[j-1]][populacao[i].rota[j]];
+                }
+
+        }
+        if(populacao[i].custo<menor){
+        	menor = populacao[i].custo;
+		}
+		if(populacao[i].custo>maior){
+        	maior = populacao[i].custo;
+		}
+    }
+
+for(i=0;i<100;i++)
+    {
+        printf("\nPopulacao: %d - ",i);
+        
+        for(j=0;j<10;j++)
+        {
+            printf(" %d",populacao[i].rota[j]);
+            
+        }
+        printf("\tCusto: %.2f",populacao[i].custo);
+    }
+    printf("\nMenor custo : %.2f", menor);
+    printf("\tMaior custo : %.2f", maior);
+    return 0;
+}
